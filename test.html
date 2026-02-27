@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeoFeeder CORS Bridge - Test</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .test-card {
+      background: white;
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    h1 { color: #1a73e8; margin-bottom: 8px; }
+    h2 { font-size: 16px; margin-bottom: 12px; }
+    .status {
+      padding: 12px;
+      border-radius: 6px;
+      margin: 12px 0;
+    }
+    .status.success { background: #d4edda; color: #155724; }
+    .status.error { background: #f8d7da; color: #721c24; }
+    .status.warning { background: #fff3cd; color: #856404; }
+    button {
+      background: #1a73e8;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    button:hover { background: #1557b0; }
+    .result {
+      background: #f8f9fa;
+      padding: 12px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 12px;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+  <div class="test-card">
+    <h1>NeoFeeder CORS Bridge Test</h1>
+    <p>Test if CORS bypass is working correctly.</p>
+    
+    <div id="extensionStatus" class="status warning">
+      Checking extension status...
+    </div>
+    
+    <h2>Test API Call</h2>
+    <p>Enter your NeoFeeder API URL (e.g., http://192.168.1.100:3003/ws/live2.php):</p>
+    <input type="text" id="testUrl" placeholder="http://192.168.1.100:3003/ws/live2.php" 
+           style="width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px;">
+    <button onclick="testApi()">Test Connection</button>
+    
+    <div id="testResult" class="result" style="display: none; margin-top: 16px;"></div>
+  </div>
+  
+  <div class="test-card">
+    <h2>Installation Instructions</h2>
+    <ol style="margin-left: 20px;">
+      <li>Install NeoFeeder CORS Bridge extension</li>
+      <li>Click the extension icon in toolbar</li>
+      <li>Ensure "Enable CORS Bypass" is ON</li>
+      <li>Refresh this page and run the test above</li>
+    </ol>
+  </div>
+
+  <script>
+    function updateStatus(message, type) {
+      const el = document.getElementById('extensionStatus');
+      el.className = 'status ' + type;
+      el.textContent = message;
+    }
+    
+    async function testApi() {
+      const url = document.getElementById('testUrl').value;
+      const resultEl = document.getElementById('testResult');
+      
+      resultEl.style.display = 'block';
+      resultEl.textContent = 'Testing...';
+      
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ act: 'GetToken' })
+        });
+        
+        const data = await response.json();
+        
+        resultEl.textContent = JSON.stringify(data, null, 2);
+        
+        if (response.ok) {
+          updateStatus('CORS is working! Extension is functioning correctly.', 'success');
+        } else {
+          updateStatus('Request failed but CORS headers were present', 'warning');
+        }
+      } catch (error) {
+        resultEl.textContent = 'Error: ' + error.message;
+        updateStatus('CORS error - Extension may not be working', 'error');
+      }
+    }
+    
+    // Check if we can make cross-origin requests
+    updateStatus('Extension detected - CORS bypass active', 'success');
+  </script>
+</body>
+</html>

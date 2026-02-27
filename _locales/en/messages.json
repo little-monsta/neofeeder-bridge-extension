@@ -1,0 +1,10 @@
+{
+  "extension_name": {
+    "message": "NeoFeeder CORS Bridge",
+    "description": "Name of the extension"
+  },
+  "extension_description": {
+    "message": "Bypasses CORS restrictions for NeoFeeder API connections",
+    "description": "Description of the extension"
+  }
+}

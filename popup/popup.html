@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeoFeeder CORS Bridge</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>NeoFeeder CORS Bridge</h1>
+    </header>
+
+    <section class="status-section">
+      <div class="status-row">
+        <span class="status-label">Status:</span>
+        <span id="statusText" class="status-active">Active</span>
+      </div>
+      <label class="toggle-row">
+        <span>Enable CORS Bypass</span>
+        <input type="checkbox" id="enableToggle" checked>
+        <span class="toggle-slider"></span>
+      </label>
+    </section>
+
+    <section class="origins-section">
+      <h2>Allowed Origins</h2>
+      <p class="hint">Use wildcard format: *://192.168.1.*/* or https://*/*</p>
+      
+      <div class="add-origin">
+        <input type="text" id="addOriginInput" placeholder="*://192.168.1.*/*">
+        <button type="button" id="addOriginBtn">Add</button>
+      </div>
+
+      <div id="originList" class="origin-list"></div>
+    </section>
+
+    <footer>
+      <button id="resetBtn" class="reset-btn">Reset to Defaults</button>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
