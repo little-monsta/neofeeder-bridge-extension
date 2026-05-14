@@ -8,33 +8,38 @@
 </head>
 <body>
   <div class="container">
-    <header>
-      <h1>NeoFeeder CORS Bridge</h1>
+    <header class="hero">
+      <div class="hero-content">
+        <img src="../icons/icon.svg" alt="NeoFeeder Logo" class="logo">
+        <h1>NeoFeeder Bridge</h1>
+      </div>
     </header>
 
-    <section class="status-section">
-      <div class="status-row">
-        <span class="status-label">Status:</span>
-        <span id="statusText" class="status-active">Active</span>
-      </div>
-      <label class="toggle-row">
-        <span>Enable CORS Bypass</span>
-        <input type="checkbox" id="enableToggle" checked>
-        <span class="toggle-slider"></span>
-      </label>
-    </section>
+    <main class="content">
+      <section class="card status-section">
+        <div class="status-row">
+          <span class="status-label">Status</span>
+          <span id="statusText" class="status-active">Active</span>
+        </div>
+        <label class="toggle-row">
+          <span>Enable CORS Bypass</span>
+          <input type="checkbox" id="enableToggle" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </section>
 
-    <section class="origins-section">
-      <h2>Allowed Origins</h2>
-      <p class="hint">Use wildcard format: *://192.168.1.*/* or https://*/*</p>
-      
-      <div class="add-origin">
-        <input type="text" id="addOriginInput" placeholder="*://192.168.1.*/*">
-        <button type="button" id="addOriginBtn">Add</button>
-      </div>
+      <section class="card origins-section">
+        <h2>Allowed Origins</h2>
+        <p class="hint">Use wildcard format: *://192.168.1.*/* or https://*/*</p>
+        
+        <div class="add-origin">
+          <input type="text" id="addOriginInput" placeholder="*://192.168.1.*/*">
+          <button type="button" id="addOriginBtn">Add</button>
+        </div>
 
-      <div id="originList" class="origin-list"></div>
-    </section>
+        <div id="originList" class="origin-list"></div>
+      </section>
+    </main>
 
     <footer>
       <button id="resetBtn" class="reset-btn">Reset to Defaults</button>
