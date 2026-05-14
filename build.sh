@@ -17,14 +17,16 @@ cp manifest.chrome.json manifest.json
 rm -rf "$OUTPUT_DIR/extension"
 mkdir -p "$OUTPUT_DIR/extension"
 
-# Copy all files except gitignore and this script
-rsync -av --exclude='.git' \
-      --exclude='*.sh' \
-      --exclude='.gitignore' \
-      --exclude='node_modules' \
-      --exclude='dist' \
-      --exclude='*.zip' \
-      . "$OUTPUT_DIR/extension/"
+# Copy all files except gitignore and this script.
+# Use tar instead of rsync so the build works on minimal environments.
+tar \
+  --exclude='./.git' \
+  --exclude='./*.sh' \
+  --exclude='./.gitignore' \
+  --exclude='./node_modules' \
+  --exclude='./dist' \
+  --exclude='./*.zip' \
+  -cf - . | tar -xf - -C "$OUTPUT_DIR/extension/"
 
 # Remove manifest.json from source (we copied it above)
 rm manifest.json

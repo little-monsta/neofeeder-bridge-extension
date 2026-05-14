@@ -21,6 +21,13 @@
     "service_worker": "background.js",
     "type": "module"
   },
+  "content_scripts": [
+    {
+      "matches": ["https://sivitas.id/*", "https://*.sivitas.id/*", "http://localhost:4321/*"],
+      "js": ["content/bridge-detector.js"],
+      "run_at": "document_start"
+    }
+  ],
   "permissions": ["declarativeNetRequest", "storage"],
   "host_permissions": ["http://*/*", "https://*/*"]
 }
